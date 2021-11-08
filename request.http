@@ -1,0 +1,59 @@
+### Delete graph
+DELETE http://localhost:3000/redisgraph/graph
+
+### Create organization
+POST http://localhost:3000/redisgraph/organization
+Content-Type: "application/json"
+
+{
+    "name": "Efebia"
+}
+
+### Get all organizations
+GET http://localhost:3000/redisgraph/organization/all
+
+### Get organization by name
+GET http://localhost:3000/redisgraph/organization/Efebia
+
+### Create person
+POST http://localhost:3000/redisgraph/person
+Content-Type: "application/json"
+
+{
+    "name": "Calogero Mandracchia",
+    "age": 29
+}
+
+### Get all person
+GET http://localhost:3000/redisgraph/person/all
+
+### Get person by name
+GET http://localhost:3000/redisgraph/person/LuigiVerdi
+
+### Hire
+POST http://localhost:3000/redisgraph/hire
+Content-Type: "application/json"
+
+{
+    "organizationName": "Efebia",
+    "personName": "Alberto Spinella"
+}
+
+### Own
+POST http://localhost:3000/redisgraph/own
+Content-Type: "application/json"
+
+{
+    "organizationName": "Efebia",
+    "personName": "Calogero Mandracchia"
+}
+
+### Knows
+POST http://localhost:3000/redisgraph/knows
+Content-Type: "application/json"
+
+{
+    "person1": "Alberto",
+    "person2": "Calogero",
+    "since": "april"
+}

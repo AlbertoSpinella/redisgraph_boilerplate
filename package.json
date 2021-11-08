@@ -1,0 +1,21 @@
+{
+  "name": "redisgraph_boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.23.1",
+    "fastify-swagger": "^4.12.6",
+    "redisgraph.js": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}

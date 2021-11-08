@@ -1,0 +1,25 @@
+curl -X DELETE http://localhost:3000/redisgraph/graph
+
+curl -X POST http://localhost:3000/redisgraph/organization -H "Content-Type: application/json" -d '{"name":"Efebia"}'
+
+curl -X POST http://localhost:3000/redisgraph/person -H "Content-Type: application/json" -d '{"name":"Alberto","age":"23"}'
+curl -X POST http://localhost:3000/redisgraph/person -H "Content-Type: application/json" -d '{"name":"Alessandro","age":"22"}'
+curl -X POST http://localhost:3000/redisgraph/person -H "Content-Type: application/json" -d '{"name":"Calogero","age":"29"}'
+curl -X POST http://localhost:3000/redisgraph/person -H "Content-Type: application/json" -d '{"name":"Raffaele","age":"31"}'
+curl -X POST http://localhost:3000/redisgraph/hire -H "Content-Type: application/json" -d '{"organizationName":"Efebia","personName":"Alberto"}'
+curl -X POST http://localhost:3000/redisgraph/hire -H "Content-Type: application/json" -d '{"organizationName":"Efebia","personName":"Alessandro"}'
+curl -X POST http://localhost:3000/redisgraph/own -H "Content-Type: application/json" -d '{"personName":"Calogero","organizationName":"Efebia"}'
+curl -X POST http://localhost:3000/redisgraph/own -H "Content-Type: application/json" -d '{"personName":"Raffaele","organizationName":"Efebia"}'
+
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alberto","person2":"Calogero","since":"april"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alberto","person2":"Raffaele","since":"april"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alberto","person2":"Alessandro","since":"september"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Calogero","person2":"Alberto","since":"april"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Calogero","person2":"Raffaele","since":"longtime"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Calogero","person2":"Alessandro","since":"september"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Raffaele","person2":"Alberto","since":"april"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Raffaele","person2":"Calogero","since":"longtime"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Raffaele","person2":"Alessandro","since":"september"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alessandro","person2":"Alberto","since":"september"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alessandro","person2":"Calogero","since":"september"}'
+curl -X POST http://localhost:3000/redisgraph/knows -H "Content-Type: application/json" -d '{"person1":"Alessandro","person2":"Raffaele","since":"september"}'
