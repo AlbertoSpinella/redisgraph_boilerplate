@@ -6,14 +6,14 @@ POST http://localhost:3000/redisgraph/organization
 Content-Type: "application/json"
 
 {
-    "name": "Efebia"
+    "name": "Google"
 }
 
 ### Get all organizations
 GET http://localhost:3000/redisgraph/organization/all
 
 ### Get organization by name
-GET http://localhost:3000/redisgraph/organization/Efebia
+GET http://localhost:3000/redisgraph/organization/Google
 
 ### Create person
 POST http://localhost:3000/redisgraph/person
@@ -28,14 +28,14 @@ Content-Type: "application/json"
 GET http://localhost:3000/redisgraph/person/all
 
 ### Get person by name
-GET http://localhost:3000/redisgraph/person/LuigiVerdi
+GET http://localhost:3000/redisgraph/person/Alberto%20Spinella
 
 ### Hire
 POST http://localhost:3000/redisgraph/hire
 Content-Type: "application/json"
 
 {
-    "organizationName": "Efebia",
+    "organizationName": "Google",
     "personName": "Alberto Spinella"
 }
 
@@ -44,8 +44,8 @@ POST http://localhost:3000/redisgraph/own
 Content-Type: "application/json"
 
 {
-    "organizationName": "Efebia",
-    "personName": "Calogero Mandracchia"
+    "organizationName": "Google",
+    "personName": "Mario Rossi"
 }
 
 ### Knows
@@ -53,7 +53,7 @@ POST http://localhost:3000/redisgraph/knows
 Content-Type: "application/json"
 
 {
-    "person1": "Alberto",
-    "person2": "Calogero",
+    "person1": "Alberto Spinella",
+    "person2": "Mario Rossi",
     "since": "april"
 }

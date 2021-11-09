@@ -4,24 +4,17 @@ const RedisGraph = RedisGraphJS.Graph;
 let graph = new RedisGraph("GraphName");
 
 export const graphDelete = async () => {
-    graph.deleteGraph();
-    return "graph deleted";
+    const res = await graph.deleteGraph();
+    return {result: res._statistics._raw};
 };
 
 export const createOrganization = async (name) => {
-    const query = `MERGE (:Organization{name:'${name}'})`;
-    await graph.query(query);
-    const res = await graph.query(`
-        MATCH (o:Organization)
-        WHERE (o.name = '${name}')
+    const query = `
+        MERGE (o:Organization{name:'${name}'})
         RETURN o
-    `);
-    if (res.hasNext()) {
-        const record = res.next().get("o");
-        return record;
-    } else {
-        return "failure";
-    }
+    `;
+    const res = await graph.query(query);
+    return res._results[0]._values[0];
 };
 
 export const getAllOrganizations = async () => {
@@ -49,22 +42,15 @@ export const getOrganizationByName = async (name) => {
 };
 
 export const createPerson = async (name, age) => {
-    const query = `MERGE (:Person{name:'${name}', age:${age}})`;
-    await graph.query(query);
-    const res = await graph.query(`
-        MATCH (p:Person)
-        WHERE (p.name = '${name}' AND p.age = ${age})
+    const query = `
+        MERGE (p:Person{name:'${name}', age:${age}})
         RETURN p
-    `);
-    if (res.hasNext()) {
-        const record = res.next().get("p");
-        return record;
-    } else {
-        return "failure";
-    }
+    `;
+    const res =  await graph.query(query);
+    return res._results[0]._values[0];
 };
 
-export const getAllPersons = async (name, age) => {
+export const getAllPersons = async () => {
     const res = await graph.query(`
         MATCH (p:Person)
         RETURN p
@@ -90,34 +76,70 @@ export const getPersonByName = async (name) => {
 };
 
 export const hirePerson = async (organizationName, personName) => {
+    const organization = await graph.query(`
+        MATCH (o:Organization)
+        WHERE (o.name = '${organizationName}')
+        RETURN o
+    `);
+    if (!organization.hasNext()) return `The organization ${organizationName} doesn't exists`;
+    const person = await graph.query(`
+        MATCH (p:Person)
+        WHERE (p.name = '${personName}')
+        RETURN p
+    `);
+    if (!person.hasNext()) return `The person ${personName} doesn't exists`;
     const query = `
         MATCH (o:Organization),(p:Person)
         WHERE (o.name = '${organizationName}') AND (p.name = '${personName}')
         MERGE (p)-[r:WorksFor]->(o)
-        RETURN o,p,r
+        RETURN p,r,o
     `;
-    await graph.query(query);
-    return "ok";
+    const res = await graph.query(query);
+    return res._results[0]._values;
 };
 
 export const ownOrganization = async (personName, organizationName) => {
+    const person = await graph.query(`
+        MATCH (p:Person)
+        WHERE (p.name = '${personName}')
+        RETURN p
+    `);
+    if (!person.hasNext()) return `The person ${personName} doesn't exists`;
+    const organization = await graph.query(`
+        MATCH (o:Organization)
+        WHERE (o.name = '${organizationName}')
+        RETURN o
+    `);
+    if (!organization.hasNext()) return `The organization ${organizationName} doesn't exists`;
     const query = `
         MATCH (p:Person),(o:Organization)
         WHERE (p.name = '${personName}') AND (o.name = '${organizationName}')
         MERGE (p)-[r:Owns]->(o)
-        RETURN o,p,r
+        RETURN p,r,o
     `;
-    await graph.query(query);
-    return "ok";
+    const res = await graph.query(query);
+    return res._results[0]._values;
 };
 
-export const personKnows = async (person1, person2, since) => {
+export const personKnows = async (person1name, person2name, since) => {
+    const person1 = await graph.query(`
+        MATCH (p:Person)
+        WHERE (p.name = '${person1name}')
+        RETURN p
+    `);
+    if (!person1.hasNext()) return `The person ${person1name} doesn't exists`;
+    const person2 = await graph.query(`
+        MATCH (p:Person)
+        WHERE (p.name = '${person2name}')
+        RETURN p
+    `);
+    if (!person2.hasNext()) return `The person ${person2name} doesn't exists`;
     const query = `
         MATCH (p1:Person),(p2:Person)
-        WHERE (p1.name = '${person1}') AND (p2.name = '${person2}')
+        WHERE (p1.name = '${person1name}') AND (p2.name = '${person2name}')
         MERGE (p1)-[r:Knows{since: '${since}'}]->(p2)
-        RETURN p1,p2,r
+        RETURN p1,r,p2
     `;
-    await graph.query(query);
-    return "ok";
+    const res = await graph.query(query);
+    return res._results[0]._values;
 };

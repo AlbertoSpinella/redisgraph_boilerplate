@@ -1,8 +1,8 @@
-GRAPH.QUERY Efebia
-"CREATE (as:Person {name:'Alberto Spinella'}),
-(cm:Person {name:'Calogero Mandracchia'}),
-(rn:Person {name:'Raffaele Nicodemo'}),
-(ag:Person {name:'Alessandro Gong'}),
+GRAPH.QUERY Google
+"CREATE (as:Person {name:'Alberto'}),
+(cm:Person {name:'Mario'}),
+(rn:Person {name:'Luigi'}),
+(ag:Person {name:'Alessandro'}),
 (as)-[:KNOWS  {since:'april'}]->(cm),
 (as)-[:KNOWS {since: 'april'}]->(rn),
 (as)-[:KNOWS {since: 'september'}]->(ag),
@@ -15,7 +15,7 @@ GRAPH.QUERY Efebia
 (ag)-[:KNOWS {since: 'september'}]->(as),
 (ag)-[:KNOWS {since: 'september'}]->(cm),
 (ag)-[:KNOWS {since: 'september'}]->(rn),
-(ef:Organization {name: 'Efebia'}),
+(ef:Organization {name: 'Google'}),
 (cm)-[:OWN]->(ef),
 (rn)-[:OWN]->(ef),
 (as)-[:WORKS_FOR {since: 'april'}]->(ef),
