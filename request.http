@@ -20,8 +20,8 @@ POST http://localhost:3000/redisgraph/person
 Content-Type: "application/json"
 
 {
-    "name": "Calogero Mandracchia",
-    "age": 29
+    "name": "Alberto Spinella",
+    "age": 23
 }
 
 ### Get all person

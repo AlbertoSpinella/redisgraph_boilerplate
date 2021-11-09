@@ -9,7 +9,7 @@ export const graphDelete = async () => {
 };
 
 export const createOrganization = async (name) => {
-    const query = `CREATE (:Organization{name:'${name}'})`;
+    const query = `MERGE (:Organization{name:'${name}'})`;
     await graph.query(query);
     const res = await graph.query(`
         MATCH (o:Organization)
@@ -49,7 +49,7 @@ export const getOrganizationByName = async (name) => {
 };
 
 export const createPerson = async (name, age) => {
-    const query = `CREATE (:Person{name:'${name}', age:${age}})`;
+    const query = `MERGE (:Person{name:'${name}', age:${age}})`;
     await graph.query(query);
     const res = await graph.query(`
         MATCH (p:Person)
@@ -93,7 +93,7 @@ export const hirePerson = async (organizationName, personName) => {
     const query = `
         MATCH (o:Organization),(p:Person)
         WHERE (o.name = '${organizationName}') AND (p.name = '${personName}')
-        CREATE (p)-[r:WorksFor]->(o)
+        MERGE (p)-[r:WorksFor]->(o)
         RETURN o,p,r
     `;
     await graph.query(query);
@@ -104,7 +104,7 @@ export const ownOrganization = async (personName, organizationName) => {
     const query = `
         MATCH (p:Person),(o:Organization)
         WHERE (p.name = '${personName}') AND (o.name = '${organizationName}')
-        CREATE (p)-[r:Owns]->(o)
+        MERGE (p)-[r:Owns]->(o)
         RETURN o,p,r
     `;
     await graph.query(query);
@@ -115,7 +115,7 @@ export const personKnows = async (person1, person2, since) => {
     const query = `
         MATCH (p1:Person),(p2:Person)
         WHERE (p1.name = '${person1}') AND (p2.name = '${person2}')
-        CREATE (p1)-[r:Knows{since: '${since}'}]->(p2)
+        MERGE (p1)-[r:Knows{since: '${since}'}]->(p2)
         RETURN p1,p2,r
     `;
     await graph.query(query);
