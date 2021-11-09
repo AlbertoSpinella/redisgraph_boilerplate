@@ -1,5 +1,3 @@
-curl -X DELETE http://localhost:3000/redisgraph/graph
-
 curl -X POST http://localhost:3000/redisgraph/organization -H "Content-Type: application/json" -d '{"name":"Efebia"}'
 
 curl -X POST http://localhost:3000/redisgraph/person -H "Content-Type: application/json" -d '{"name":"Alberto","age":"23"}'
