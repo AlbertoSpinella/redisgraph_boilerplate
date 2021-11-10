@@ -8,7 +8,8 @@ import {
     personGetByName,
     hire,
     own,
-    knows
+    knows,
+    stress
 } from "./controller.js";
 
 const Organization = {
@@ -215,4 +216,11 @@ export const knowsOpts = {
         }
     },
     handler: knows
+};
+
+export const stressOpts = {
+    schema: {
+        tags: ["relations"]
+    },
+    handler: stress
 };

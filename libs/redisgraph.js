@@ -1,7 +1,7 @@
 import RedisGraphJS from "redisgraph.js";
 const RedisGraph = RedisGraphJS.Graph;
 
-let graph = new RedisGraph("GraphName");
+let graph = new RedisGraph("Boilerplate");
 
 export const graphDelete = async () => {
     const res = await graph.deleteGraph();
@@ -142,4 +142,22 @@ export const personKnows = async (person1name, person2name, since) => {
     `;
     const res = await graph.query(query);
     return res._results[0]._values;
+};
+
+export const stressTest = async () => {
+    const query = `
+        MATCH (p1:Person)-[r:Knows]->(p2:Person)
+        WHERE (p2.name = '0')
+        RETURN p1
+    `;
+    console.time();
+    const res = await graph.query(query);
+    console.timeEnd();
+    const values = [];
+    const results = res._results;
+    results.forEach(el => {
+        values.push(el._values);
+    });
+    const statistics = res._statistics;
+    return {values, statistics};
 };

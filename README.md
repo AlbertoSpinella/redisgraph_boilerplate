@@ -11,5 +11,5 @@ Alternatively, instead of `npm t`, run `npm run dev` and, on another shell, run:
 
 Visit localhost:8001 to view data. To do so, run the following query:
 ```
-GRAPH.QUERY "GraphName" "match (n) return n"
+GRAPH.QUERY "Boilerplate" "match (n) return n"
 ```

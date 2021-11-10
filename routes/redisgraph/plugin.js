@@ -8,7 +8,8 @@ import {
     personGetByNameOpts,
     hireOpts,
     ownOpts,
-    knowsOpts
+    knowsOpts,
+    stressOpts
 } from "./schema.js";
 
 export const redisgraphPlugin = (fastify, options, done) => {
@@ -26,6 +27,8 @@ export const redisgraphPlugin = (fastify, options, done) => {
         fastify.post("/hire", hireOpts);
         fastify.post("/own", ownOpts);
         fastify.post("/knows", knowsOpts);
+
+        fastify.get("/stress", stressOpts);
 
         done();
     } catch (err) {

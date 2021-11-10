@@ -57,3 +57,6 @@ Content-Type: "application/json"
     "person2": "Mario Rossi",
     "since": "april"
 }
+
+### Stress
+GET http://localhost:3000/redisgraph/stress

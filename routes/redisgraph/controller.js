@@ -8,7 +8,8 @@ import {
     getPersonByName,
     hirePerson,
     ownOrganization,
-    personKnows
+    personKnows,
+    stressTest
 } from "../../libs/redisgraph.js";
 
 export const deleteGraph = async (req, res) => {
@@ -100,6 +101,15 @@ export const knows = async (req, res) => {
     try {
         const { person1, person2, since } = req.body;
         const result = await personKnows(person1, person2, since);
+        return res.send(result);
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const stress = async (req, res) => {
+    try {
+        const result = await stressTest();
         return res.send(result);
     } catch (err) {
         throw err;

@@ -1,0 +1,9 @@
+QUANTE PERSONE LAVORANO PER GOOGLE?
+match (p:Person)-[r:WorksFor]->(o:Organization)
+where o.name = "Google"
+return count(p)
+
+QUANTI 18ENNI LAVORANO PER GOOGLE?
+match (p:Person)-[r:WorksFor]->(o:Organization)
+where p.age = 18
+return p
