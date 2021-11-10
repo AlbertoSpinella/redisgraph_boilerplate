@@ -1,3 +1,26 @@
+GRAPH.QUERY Google
+"CREATE (as:Person {name:'Alberto'}),
+(cm:Person {name:'Mario'}),
+(rn:Person {name:'Luigi'}),
+(ag:Person {name:'Alessandro'}),
+(as)-[:KNOWS  {since:'april'}]->(cm),
+(as)-[:KNOWS {since: 'april'}]->(rn),
+(as)-[:KNOWS {since: 'september'}]->(ag),
+(cm)-[:KNOWS {since: 'longtime'}]->(rn),
+(cm)-[:KNOWS {since: 'april'}]->(as),
+(cm)-[:KNOWS {since: 'september'}]->(ag),
+(rn)-[:KNOWS {since: 'longtime'}]->(cm),
+(rn)-[:KNOWS {since: 'april'}]->(as),
+(rn)-[:KNOWS {since: 'september'}]->(ag),
+(ag)-[:KNOWS {since: 'september'}]->(as),
+(ag)-[:KNOWS {since: 'september'}]->(cm),
+(ag)-[:KNOWS {since: 'september'}]->(rn),
+(ef:Organization {name: 'Google'}),
+(cm)-[:OWN]->(ef),
+(rn)-[:OWN]->(ef),
+(as)-[:WORKS_FOR {since: 'april'}]->(ef),
+(ag)-[:WORKS_FOR {since: 'september'}]->(ef)"
+
 QUANTE PERSONE LAVORANO PER GOOGLE?
 match (p:Person)-[r:WorksFor]->(o:Organization)
 where o.name = "Google"
